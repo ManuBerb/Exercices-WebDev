@@ -126,5 +126,112 @@ Cours de revision pour manu
     So that's where -- Promises -- and -- Async/Await -- comes in
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-# Promises
+### Promises   ✅✅
 
+IRL : In promises you have the person that made the promise and the person that the promise was made to
+Same thing for JS promises you have:
+# The maker : is a function that creates a promise object and returns it --> asynchronous function
+Because the async process takes an unknown amount of time and we need to return something in the meantime (or else it'll return undefined). We return a promise in the meantime till we get the data we want (weather data for ex).
+
+A promise can have 3 states:
+# Pending
+# Resolve -- if the promise suceeds
+# Reject -- if the promise doesn't suceeds
+
+function getWeather() {
+    return new Promise(function(resolve, reject){
+        setTimeout(function(){
+            reject('Error')
+        })
+    })
+}
+
+# The receiver : calls the maker and receives the promise and does something with it
+It's where we call our async function from
+function getWeather() {
+    return new Promise(function(resolve, reject){
+        resolve('Sunny')
+    })
+}
+
+***receiver***
+const promise = getWeather()
+promise.then(function(data){
+    console.log(data)
+}) 
+
+***.then*** --> called when promise resolves successfully (verify if we called reject or success)
+***OUTPUT*** -- > 'Sunny'
+
+Now if we incorporate the reject ut would look like this
+
+function getWeather() {
+    return new Promise(function(resolve, reject){
+        reject('Sunny')
+    })
+}
+***receiver***
+const promise = getWeather()
+promise.then(
+    function(data){
+    console.log('First param {$data}')
+},
+function(data){
+    console.log('Second param {$data}')
+}
+) 
+
+***OUTPUT*** -- > 'Second param Sunny'
+
+
+## We can also write them like this
+function getWeather() {
+    return new Promise(function(resolve, reject){
+        reject('Sunny')
+    })
+}
+
+function onSuccess(data) {
+    console.log('Success ${data}')
+}
+
+function onError(error) {
+    console.log('Error ${error}')
+}
+
+getWeather().then(onSuccess, onError)
+
+# EXAMPLE
+function getWeather() {
+    return new Promise(function(resolve, reject){
+       setTimeout(() => {
+        resolve('Cloudy')
+       },100)
+    })
+}
+function getWeatherIcon(weather){
+    return new Promise(function(resolve, reject){
+        setTimeout(() => {
+            switch(weather) {
+                case: 'Sunny':
+                    resolve('☀️')
+                case 'Cloudy':
+                    resolve('☁️')
+                default:
+                reject('NO ICON FOUND)
+            }
+        },100)
+    })
+}
+function onSuccess(data) {
+    console.log('Success ${data}')
+}
+
+function onError(error) {
+    console.log('Error ${error}')
+}
+
+getWeather()
+    then.(getWeatherIcon) 
+    then.(onSuccess, onError)
+*** CHAINING - whatever gets resolved in the first one (that data goes into the next function as the parameter [Cloudy here]) ***
