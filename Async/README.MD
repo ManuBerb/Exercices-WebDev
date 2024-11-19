@@ -54,10 +54,7 @@ Cours de revision pour manu
 
 # Asynchronous programming:
     Let's rewrite this without and we wanna call our frind Qoli before eating the pizza;
-
-
     If we run the following code we will get
-
 
     '''
     let pizza
@@ -70,30 +67,22 @@ Cours de revision pour manu
         console.log('Pizza was ordered)
     }
 
-
     orderPizza()
   //console.log('Call Qoli')
     console.log('Eat ${pizza}')
     '''
 
-
-    The output will be
+    The output will be:
     Order Pizza
     Pizza was ordered
     Call Qoli
     Eat *UNDEFINED*
 
-
     2secs later...
-
 
     🍕 is ready    
 
-
-
-
     ///////////////////////////
-
 
     Now we will want to do the pizza order into it's own process without having to wait, we will do asynchronous programming
    
@@ -109,27 +98,20 @@ Cours de revision pour manu
         console.log('Eat the ${pizza}')
     }
 
-
     orderPizza(pizzaReady) //Once you are done call this
     console.log('Call Qoli')
-
 
     OUTPUT:
     Call Qoli
     *wait 2 sec*
     Eat the 🍕
 
-
-
-
     -- Some example of asynchronous code --
-
 
     // When the user clicks this button or window in this case run the function
     window.addEventListener('click', function(){
         console.log('Clicked')
     })
-
 
     //when user clicks button
      window.addEventListener('click', callback){
@@ -138,19 +120,11 @@ Cours de revision pour manu
         }
     }
 
-
-
-
     -- PROBLEM --
     If you have many callbacks in each other we have CALLBACK HELL !!!
 
-
     So that's where -- Promises -- and -- Async/Await -- comes in
 
-
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
 # Promises
-
 
