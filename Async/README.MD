@@ -235,3 +235,157 @@ getWeather()
     then.(getWeatherIcon) 
     then.(onSuccess, onError)
 *** CHAINING - whatever gets resolved in the first one (that data goes into the next function as the parameter [Cloudy here]) ***
+# EXAMPLE 2 
+function fun1() {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            reject('404')
+        },100)
+    })
+}
+
+function fun2() {
+    return new Promise((resolve, reject) => {
+        setTimeout(()=> {
+            resolved('🤓')
+        },100)
+    })
+}
+
+function onSuccess(data){
+    console.log(data)
+}
+
+function onError(errorCode) {
+    console.log('ERROR: ${errorCode}')
+}
+
+fun1()
+    .then(fun2) 
+    //When it catches reject on fun1 it directly jumps to catch(onError) *** if we write .then(fun2, onError) it will do the next line and wont jump directly to  .catch(onError) ***
+    .then(onSuccess)
+    .catch(onError)
+
+***OUTPUT*** ERROR : 404
+
+
+# ASYNC / AWAIT
+
+In order to use await  you have to use async , not necessarily the other way around
+1) Async and await must be used together
+2) Async/await must be used together
+3) You can await any functio that returns a Promise
+4) Any function can be converted to async
+5) All async functions return a Promise
+6) Error handling with try/catch 
+
+## Example 1
+function getData() {
+    return new Promise(resolve => {
+        setTimeout(() => {
+            resolve(46)
+        }, 1)
+    })
+}
+
+//nicer 
+async function start() {
+    const result = await getData()
+    console.log(result)
+}
+
+//same as  but start() nicer
+async function start2() {
+    getData()
+        .then(Result => {
+            console.log(result)
+        })
+}
+
+start()
+
+*** OUTPUT: 46 ***
+
+**fetch** is a native browser feature --
+
+## Error handling with try/catch
+
+function getData() {
+    return new Promise(resolve => {
+        setTimeout(() => {
+            reject('Something went wrong!')
+        }, 1)
+    })
+}
+
+async function start2() {
+    const result = await getData()
+        .catch(error => {
+            console.log('ERROR: ${error}')
+      })
+    console.log (result)
+}
+
+**OUTPUT** : 'ERROR : Something went wrong'
+                undefined //we dont want this line to run so thats why we implement it like:
+
+function onSuccess(){
+    console.log('Success : ${result}')
+}
+
+function onFailure{
+    console.log('ERROR: ${error}')
+}
+
+async function start() {
+    try {
+        const result = await getData()
+        onSuccess()
+    } catch (error) {
+        onFailure()   
+    }
+}
+
+
+
+
+
+# FETCH API 
+
+***GET***
+const url =
+'http://...'
+// api_token
+async function getData() {
+    const response = await fetch(url)
+    const data = await response.json()
+    consol.log(data)
+}
+
+getData()
+
+**some API's need tokens**
+--> maintainer uses limits on how many times you can call them
+
+Sometimes the API needs you to pass **Headers** to get access in a more secure way
+So in the case you need to create a Response object
+
+for example to access spotify's API you need to have a token
+
+const url =
+'http://...'
+
+
+async function getData() {
+    const request = new Request(url, {
+        headers: {
+            'Authorization': 'Bearer' 
+            ...token
+        }
+    })
+    const response = await fetch(request)
+    const data = await response.json()
+    console.log(data)
+}
+
+getData()
