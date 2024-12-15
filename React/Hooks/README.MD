@@ -14,3 +14,10 @@ Voici les liens vers les différents exercices et leurs énoncés :
 
 - [`infiniteScroll`](./infiniteScroll/README.MD) : implémentation d'un menu déroulant infini
 - [`useStorage`](./useStorage/README.MD) : implémentation d'un hook React personnalisé
+
+# useState
+Il permet d'ajouter un etat a une composante fonctionnelle
+exemple: const [count, setCount] = useState(0);
+
+# useEffect 
+Il permet d;executer des effets secondaires commes les appels API ou la manipulation du DOM
